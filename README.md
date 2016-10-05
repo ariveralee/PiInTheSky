@@ -6,7 +6,7 @@ PiInTheSky is a security camera built using OpenCV and Raspberry Pi. The idea is
 To implement this, you will need the following software and hardware:
 
 ### Libraries:
-- OpenCV [OpenCV Site](http://opencv.org/)
+- OpenCV | [OpenCV Site](http://opencv.org/)
 
 ### Hardware:
 - **Raspberry Pi 3 Model B** | [Link Model B ](https://www.amazon.com/gp/product/B01CD5VC92/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1)
@@ -14,8 +14,11 @@ To implement this, you will need the following software and hardware:
 - **Raspberry Pi case** | [Official Case](https://www.amazon.com/gp/product/B01F1PSFY6/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1)
 - **PIR (motion) sensor** | [Link Adafruit](https://www.adafruit.com/products/189)
 - **Micro SD card** | (preferably with the adapter) [Samsung EVO MicroSD](https://www.amazon.com/gp/product/B00IVPU786/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1)
-- **Raspberry Pi Heatsink** | [Heatsinks](https://www.amazon.com/gp/product/B00HPQGTI4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1)
 - **CanaKit 5V 2.5 Raspberry Pi 3 Power Supply** | [Power Supply](https://www.amazon.com/gp/product/B00MARDJZ4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1)
+
+####Optional Hardware
+- **USB Flash Memory Card Reader** | [Sabrent Card Reader](https://www.amazon.com/Sabrent-SuperSpeed-Windows-Certain-Android/dp/B00OJ5WBUE/ref=sr_1_4?s=pc&ie=UTF8&qid=1475681982&sr=1-4&keywords=sd%2Bcard%2Breader&th=1) - Get this if you don't have a card reader built-in to your pc or laptop.
+- **Raspberry Pi Heatsink** | [Heatsinks](https://www.amazon.com/gp/product/B00HPQGTI4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1) - Heatsinks are not needed, but highly suggested to help dissipate the heat.
 
 ### Component Breakdown:
 - **Raspberry Pi 3 Model B** - This is the latest model, comes with a built-in Bluetooth and Wi-Fi module. Due to this, I suggest looking to get this model.
@@ -28,4 +31,21 @@ To implement this, you will need the following software and hardware:
 
 ### Notes:
 - This has not been tested on any other hardware but this does not mean that it will not work
-- Heatsinks are not necessary but **highly suggested**; the Pi can get hot.
+
+
+
+
+##Instructions
+
+1. Download the NOOBS zip (New Out Of the Box Software)
+    - [NOOBS Link](https://www.raspberrypi.org/downloads/noobs/)
+
+2. RaspberryPi.org has provided a good tutorial on how to setup NOOBS, definitely watch the video! 
+    - [NOOBS Setup](https://www.raspberrypi.org/help/videos/)
+
+
+
+
+
+
+
