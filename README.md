@@ -3,6 +3,8 @@
 PiInTheSky is a security camera built using OpenCV and Raspberry Pi. The idea is to have a tracking algorithm that once is triggered by a PIR 
 (motion) sensor, notifies the user of entry into their space VIA text and/or phone call.
 
+---
+
 To implement this, you will need the following software and hardware:
 
 ### Libraries:
@@ -20,6 +22,8 @@ To implement this, you will need the following software and hardware:
 - **USB Flash Memory Card Reader** | [Sabrent Card Reader](https://www.amazon.com/Sabrent-SuperSpeed-Windows-Certain-Android/dp/B00OJ5WBUE/ref=sr_1_4?s=pc&ie=UTF8&qid=1475681982&sr=1-4&keywords=sd%2Bcard%2Breader&th=1) - Get this if you don't have a card reader built-in to your pc or laptop.
 - **Raspberry Pi Heatsink** | [Heatsinks](https://www.amazon.com/gp/product/B00HPQGTI4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1) - Heatsinks are not needed, but highly suggested to help dissipate the heat.
 
+---
+
 ### Component Breakdown:
 - **Raspberry Pi 3 Model B** - This is the latest model, comes with a built-in Bluetooth and Wi-Fi module. Due to this, I suggest looking to get this model.
 - **Raspberry Pi Camera Module V2** - This module is capable of providing 1080P video at 30FPS or 720P video at 60FPS (Frame Per Second). This module is also capable of taking still frames. I suggest this module because in regards to performance, it's a lot faster and cheaper than a standard USB camera.
@@ -29,11 +33,12 @@ To implement this, you will need the following software and hardware:
 - **Raspberry Pi Heatsink** - Used to dissipate heat. Being as we are going to have a few components hooked up, we want to reduce the operating temperature as much as possible.
 - **CanaKit 5V 2.5 Raspberry Pi 3 Power Supply** - Used to power the Raspberry Pi. For our implementation, USB power will most likely not be enough.
 
+---
+
 ### Notes:
 - This has not been tested on any other hardware but this does not mean that it will not work
 
-
-
+---
 
 ##Instructions
 
