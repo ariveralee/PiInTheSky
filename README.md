@@ -7,6 +7,12 @@ PiInTheSky is a security camera built using OpenCV and Raspberry Pi. The idea is
 
 To implement this, you will need the following software and hardware:
 
+### Software:
+- Python 3 | [Python Site](https://www.python.org/downloads/)
+
+### Packages:
+- TBA :-)
+
 ### Libraries:
 - OpenCV | [OpenCV Site](http://opencv.org/)
 
@@ -21,6 +27,9 @@ To implement this, you will need the following software and hardware:
 ####Optional Hardware
 - **USB Flash Memory Card Reader** | [Sabrent Card Reader](https://www.amazon.com/Sabrent-SuperSpeed-Windows-Certain-Android/dp/B00OJ5WBUE/ref=sr_1_4?s=pc&ie=UTF8&qid=1475681982&sr=1-4&keywords=sd%2Bcard%2Breader&th=1) - Get this if you don't have a card reader built-in to your pc or laptop.
 - **Raspberry Pi Heatsink** | [Heatsinks](https://www.amazon.com/gp/product/B00HPQGTI4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1) - Heatsinks are not needed, but highly suggested to help dissipate the heat.
+- HDMI Cable | [Amazon HDMI Cable](https://www.amazon.com/AmazonBasics-High-Speed-HDMI-Cable-Standard/dp/B014I8SSD0/ref=sr_1_3?ie=UTF8&qid=1476410577&sr=8-3&keywords=hdmi%2Bcable&th=1) - This can be used in conjunction with a monitor (if it takes HDMI input) or a TV for when you're installing NOOBS and using the Pi.
+- Keyboard | [Amazon Basics Keyboard](https://www.amazon.com/AmazonBasics-KU-0833-Wired-Keyboard/dp/B005EOWBHC/ref=sr_1_3?ie=UTF8&qid=1476410680&sr=8-3&keywords=keyboard) - Used to.. you guessed it! Type.
+- Mouse | [Amazon Basics Mouse](https://www.amazon.com/AmazonBasics-3-Button-Wired-Mouse-Black/dp/B005EJH6RW/ref=sr_1_2?ie=UTF8&qid=1476410734&sr=8-2&keywords=mouse) - Used to.. point and click!
 
 ---
 
@@ -36,6 +45,7 @@ To implement this, you will need the following software and hardware:
 ---
 
 ### Notes:
+- You don't have to connect any peripheral devices to the PI or use a monitor to install. You could SSH in and do what is known as a "silent install" 
 - This has not been tested on any other hardware but this does not mean that it will not work
 
 ---
@@ -47,6 +57,8 @@ To implement this, you will need the following software and hardware:
 
 2. RaspberryPi.org has provided a good tutorial on how to setup NOOBS, definitely watch the video! 
     - [NOOBS Setup](https://www.raspberrypi.org/help/videos/)
+
+3. TBA :-)
 
 
 
