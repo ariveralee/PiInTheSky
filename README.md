@@ -5,16 +5,22 @@ PiInTheSky is a security camera built using OpenCV and Raspberry Pi. The idea is
 
 ---
 
+## Broad Overview of what you'll need:
+
 To implement this, you will need the following software and hardware:
 
 ### Software:
-- Python 3 | [Python Site](https://www.python.org/downloads/)
+- Python | [Python Site](https://www.python.org/downloads/) - I'd say go with Python 2 instead of 3 as there's still more support for Python 2 regarding packages..
 
 ### Packages:
-- TBA :-)
+- Tons, I'll add them as I go along. Just a few to name off the start:
+    - Pip
+    - Numpy
+    - Gpiozero - For the motion sensor
+
 
 ### Libraries:
-- OpenCV | [OpenCV Site](http://opencv.org/)
+- OpenCV | [OpenCV Site](http://opencv.org/) - We will touch base on how to get this running on the Pi later.
 
 ### Hardware:
 - **Raspberry Pi 3 Model B** | [Link Model B ](https://www.amazon.com/gp/product/B01CD5VC92/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1)
@@ -30,7 +36,7 @@ To implement this, you will need the following software and hardware:
 - **CanaKit 5V 2.5 Raspberry Pi 3 Power Supply** | [Power Supply](https://www.amazon.com/gp/product/B00MARDJZ4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1)
 
 ####Optional Hardware
-- **Raspberry Pi Heatsink** | [Heatsinks](https://www.amazon.com/gp/product/B00HPQGTI4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1) - Heatsinks are ~not~ needed, and **HIGHLY** suggested to help dissipate the heat. As a matter of fact, I found that when I was installing OpenCV on the Pi, it would get hot to the point that it stopped the installation. 
+- **Raspberry Pi Heatsink** | [Heatsinks](https://www.amazon.com/gp/product/B00HPQGTI4/ref=oh_aui_detailpage_o03_s01?ie=UTF8&psc=1) - Heatsinks are ~~not needed~~ are **HIGHLY** suggested to help dissipate the heat. As a matter of fact, I found that when I was installing OpenCV on the Pi, it would get hot to the point that it stopped the installation. 
 
 - **USB Flash Memory Card Reader** | [Sabrent Card Reader](https://www.amazon.com/Sabrent-SuperSpeed-Windows-Certain-Android/dp/B00OJ5WBUE/ref=sr_1_4?s=pc&ie=UTF8&qid=1475681982&sr=1-4&keywords=sd%2Bcard%2Breader&th=1) - Get this if you don't have a card reader built-in to your pc or laptop.
 
@@ -89,7 +95,7 @@ To implement this, you will need the following software and hardware:
         ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/topoff.JPG "Taking the top off")
 
 
-    - Next, you need to pull the side pieces off, try to edge undearth and pull it out as shown below:
+    - Next, you need to pull the side pieces off, try to edge underneath and pull it out as shown below:
 
         ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/sidepiece.JPG "Taking the side off")
 
@@ -99,7 +105,7 @@ To implement this, you will need the following software and hardware:
         ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/thearrow.JPG "separating the pieces")
 
 
-    - Now take the pi and insert the bottom first on an angle where the SD slot is as and press down as shown below:
+    - Now take the Pi and insert the bottom first on an angle where the SD slot is as and press down as shown below:
 
         ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/insertpi.JPG "Placing the pi")
 
@@ -109,7 +115,7 @@ To implement this, you will need the following software and hardware:
         ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/heatsink.JPG "Placing heat sinks")
 
     
-    - Cool, now we can move to getting the rest of the case back on. press the top of the case back on and the side pieces. At this point, lets leave the top open because we want the heat to vent while installing:
+    - Cool, now we can move to getting the rest of the case back on. Press the top of the case back on and the side pieces. At this point, lets leave the top cover off because we want the heat to vent while installing everything:
 
         ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/assembled.JPG "Pi assembled")
 
@@ -131,7 +137,52 @@ To implement this, you will need the following software and hardware:
 
 7. Grab a beer while you wait.
 
-8. TBA :-)
+8. You should be lead to your desktop now. First things first, we need WIFI, so setup your WIFI.
+
+9. Great, we are connected to the world! Time for some updates:
+    - Open terminal (should be top right corner)
+    
+    - We are on a form of debian so we will be using apt-get for our upgrades and installations.
+    
+    - Let's start by upgrading installed packages:
+    
+    ```bash
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo rpi-update
+    ```
+
+    - Now lets install the required developer tools and packages
+
+    ```bash
+    sudo apt-get install build-essential cmake pkg-config
+    ```
+
+    - Now we need some image I/O packages for our processing of images
+
+    ```bash
+    sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev
+    ```
+
+    - Time to install our GTK development library. This is used for building GUI's (Graphical User Interfaces) and is required to use OpenCV to view images on our screen.
+
+    ```bash
+    sudo apt-get install libgtk2.0-dev
+    ```
+
+    - We need to add on the necessay video I/O packages to load video files using OpenCV
+
+    ```bash
+    sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv41-dev
+    ```
+
+    - Cool, now we need some other libraries for optimizing operations within OpenCV
+
+    ```bash
+    sudo apt-get install libatlas-base-dev gfortran
+    ```
+
+    10. Time for more beer, TBA :-)
 
 
 
