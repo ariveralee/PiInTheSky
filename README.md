@@ -85,32 +85,34 @@ To implement this, you will need the following software and hardware:
 
 4. Grab the Raspberry Pi and the Raspberry Pi Case. Lets disassemble the case so we can place the pi in:
     - Grab the edge of the top of the Pi case and hold the bottom with the other hand. You should be able to pull the top off as shown below:
-    
-    ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/topoff.JPG "Taking the top off")
+
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/topoff.JPG "Taking the top off")
 
 
     - Next, you need to pull the side pieces off, try to edge undearth and pull it out as shown below:
 
-    ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/sidepiece.JPG "Taking the side off")
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/sidepiece.JPG "Taking the side off")
 
 
     - Once you're done, one of the sides will have an arrow as shown below. If you press on this and pull on the top of the case, it will come off fairly easily:
 
-    ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/thearrow.JPG "separating the pieces")
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/thearrow.JPG "separating the pieces")
 
 
     - Now take the pi and insert the bottom first on an angle where the SD slot is as and press down as shown below:
 
-    ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/insertpi.JPG "Placing the pi")
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/insertpi.JPG "Placing the pi")
 
 
     - At this point, now is the perfect time to put the heatsinks on. Remove the adhesive from the bottom and attach them in the places shown below:
 
-    ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/heatsink.JPG "Placing heat sinks")
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/heatsink.JPG "Placing heat sinks")
 
+    
     - Cool, now we can move to getting the rest of the case back on. press the top of the case back on and the side pieces. At this point, lets leave the top open because we want the heat to vent while installing:
 
-    ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/assembled.JPG "Pi assembled")
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/assembled.JPG "Pi assembled")
+
 
 5. Now, if you followed the NOOBs installation properly, you should have your files on the SD card. Put the micro SD into the slot on the Raspberry pi.
 
@@ -123,7 +125,8 @@ To implement this, you will need the following software and hardware:
     - Plug in the power supply to an outlet and then into the Pi.
 
     - Viola! the Pi should be powering on. You should see an option to install Pixel. Select it and you should see a screen like the one below:
-    ![alt text](https://github.com/ariveralee/PiInTheSkyraw/blob/master/images/install.JPG "Installing Raspbian")
+
+        ![alt text](https://github.com/ariveralee/PiInTheSky/blob/master/images/install.JPG "Installing Raspbian")
 
 
 7. Grab a beer while you wait.
