@@ -40,11 +40,11 @@ To implement this, you will need the following software and hardware:
 
 - **USB Flash Memory Card Reader** | [Sabrent Card Reader](https://www.amazon.com/Sabrent-SuperSpeed-Windows-Certain-Android/dp/B00OJ5WBUE/ref=sr_1_4?s=pc&ie=UTF8&qid=1475681982&sr=1-4&keywords=sd%2Bcard%2Breader&th=1) - Get this if you don't have a card reader built-in to your pc or laptop.
 
-- HDMI Cable | [Amazon HDMI Cable](https://www.amazon.com/AmazonBasics-High-Speed-HDMI-Cable-Standard/dp/B014I8SSD0/ref=sr_1_3?ie=UTF8&qid=1476410577&sr=8-3&keywords=hdmi%2Bcable&th=1) - This can be used in conjunction with a monitor (if it takes HDMI input) or a TV for when you're installing NOOBS and using the Pi.
+- **HDMI Cable** | [Amazon HDMI Cable](https://www.amazon.com/AmazonBasics-High-Speed-HDMI-Cable-Standard/dp/B014I8SSD0/ref=sr_1_3?ie=UTF8&qid=1476410577&sr=8-3&keywords=hdmi%2Bcable&th=1) - This can be used in conjunction with a monitor (if it takes HDMI input) or a TV for when you're installing NOOBS and using the Pi.
 
-- Keyboard | [Amazon Basics Keyboard](https://www.amazon.com/AmazonBasics-KU-0833-Wired-Keyboard/dp/B005EOWBHC/ref=sr_1_3?ie=UTF8&qid=1476410680&sr=8-3&keywords=keyboard) - Used to.. you guessed it! Type.
+- **Keyboard** | [Amazon Basics Keyboard](https://www.amazon.com/AmazonBasics-KU-0833-Wired-Keyboard/dp/B005EOWBHC/ref=sr_1_3?ie=UTF8&qid=1476410680&sr=8-3&keywords=keyboard) - Used to.. you guessed it! Type.
 
-- Mouse | [Amazon Basics Mouse](https://www.amazon.com/AmazonBasics-3-Button-Wired-Mouse-Black/dp/B005EJH6RW/ref=sr_1_2?ie=UTF8&qid=1476410734&sr=8-2&keywords=mouse) - Used to.. point and click!
+- **Mouse** | [Amazon Basics Mouse](https://www.amazon.com/AmazonBasics-3-Button-Wired-Mouse-Black/dp/B005EJH6RW/ref=sr_1_2?ie=UTF8&qid=1476410734&sr=8-2&keywords=mouse) - Used to.. point and click!
 
 ---
 
@@ -182,7 +182,55 @@ To implement this, you will need the following software and hardware:
     sudo apt-get install libatlas-base-dev gfortran
     ```
 
-    10. Time for more beer, TBA :-)
+10. Lets install pip
+   
+    ```bash
+    wget https://bootstrap.pypa.io/get-pip.py
+    sudo python get-pip.py
+    ```
+
+11. Next up, We want to install virtualenv and virtualenvwrapper:
+    
+    ```bash
+    sudo pip install virtualenv virtualenvwrapper
+    sudo rm -rf ~/.cache/pip
+    ```
+12. We must now update our `~/.profile` file to include the following:
+    
+    ```bash
+    export WORKON_HOME=$HOME/.virtualenvs
+    source /usr/local/bin/virtualenvwrapper.sh
+    ```
+
+13. Add this to your `.bashrc` / `.bash_profile` / `.zshrc` :
+    
+    ```bash
+    # load virtualenvwrapper for python (after custom PATHs)
+    venvwrap="virtualenvwrapper.sh"
+    /usr/bin/which -s $venvwrap
+    if [ $? -eq 0 ]; then
+    venvwrap=`/usr/bin/which $venvwrap`
+    source $venvwrap
+    fi
+    ```
+
+14. Lets source our files to get our changes in:
+
+    ```bash
+    source ~/.profile
+    source ~/.bashrc  # or .bash_profile / .zshrc
+    ```
+
+15. Create our OpenCV virtual environment:
+
+    ```bash
+    mkvirtualenv cv
+    ```
+
+16. Beer time :-)
+
+
+
 
 
 
