@@ -17,6 +17,7 @@ To implement this, you will need the following software and hardware:
     - Pip
     - Numpy
     - Gpiozero - For the motion sensor
+    - Picamera - For the camera module
 
 
 ### Libraries:
@@ -207,7 +208,7 @@ To implement this, you will need the following software and hardware:
     ```bash
     # load virtualenvwrapper for python (after custom PATHs)
     venvwrap="virtualenvwrapper.sh"
-    /usr/bin/which -s $venvwrap
+    /usr/bin/which -a $venvwrap
     if [ $? -eq 0 ]; then
     venvwrap=`/usr/bin/which $venvwrap`
     source $venvwrap
@@ -227,9 +228,83 @@ To implement this, you will need the following software and hardware:
     mkvirtualenv cv
     ```
 
-16. Beer time :-)
+16. Awesome! Now we can install Python 2.7
+
+    ```bash
+    sudo apt-get install python2.7-dev
+    ```
+
+    We also need Numpy because OpenCV Python represents images as multi-dimension Numpy arrays:
+
+    ```bash
+    pip install numpy
+    ```
+
+17. Now the most important part, OpenCV:
+
+    ```bash
+    wget -O opencv-3.1.0.zip https://sourceforge.net/projects/opencvlibrary/files/latest/download?source=directory
+    unzip opencv-3.1.0.zip
+    cd opencv-3.1.0
+    ```
+
+    Setup the build
+
+    ```bash
+    mkdir build
+    cd build
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..
+    ```
+
+    We compile OpenCV (**Note that this could take up to 3 hours on the Pi!**):
+
+    ```bash
+    make
+    ```
+
+    Last but not least, We install OpenCV:
+
+    ```bash
+    sudo make install
+    sudo ldconfig
+    ```
+
+18. OpenCV should be installed in:
+
+    ```bash
+    /usr/local/lib/python2.7/site-packages
+    ```
+
+    In order for us to use OpenCV in our Virtual Environment (cv), we need to link it:
+
+    ```bash
+    cd ~/.virtualenvs/cv/lib/python2.7/site-packages/
+    ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+    ln -s /usr/local/lib/python2.7/site-packages/cv.py cv.py
+    ```
+
+19. Lets see if it works!:
+
+    ```bash
+    workon cv
+    python
+    ```
+
+    ```python
+    import cv2
+    cv2.__version__
+    '3.1.0'
+    ```
+    
+
+If Python and OpenCV is successfully installed on our PI. the above should work with no problems.
+
+___
+
+### Attaching Components to the Pi
 
 
+TBA ;-)
 
 
 
