@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ariveralee/PiInTheSky.png?label=ready&title=Ready)](https://waffle.io/ariveralee/PiInTheSky)
 # PiInTheSky
 
 PiInTheSky is a security camera built using OpenCV and Raspberry Pi. The idea is to have a tracking algorithm that once is triggered by a PIR 
