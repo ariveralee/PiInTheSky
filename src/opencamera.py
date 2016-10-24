@@ -1,24 +1,22 @@
 import numpy as np
 import cv2
 
-#https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
-face_cascade = cv2.CascadeClassifier('/Users/ariveralee/opencv/data/lbpcascades/lbpcascade_frontalface.xml')
-
-#this is running incredibly slow on the mac. Need to make faster.
+face_cascade = cv2.CascadeClassifier(
+    '/Users/ariveralee/opencv/data/lbpcascades/lbpcascade_frontalface.xml')
 
 cap = cv2.VideoCapture(0)
+cap.set(3, 320)  # resize the frame
+cap.set(4, 240)
 
 while (True):
     ret, img = cap.read()
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # convert to grayscale
-    resized_image = cv2.resize(img, (500, 400)) # resize the image
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5) # looking for the faces
-    for (x,y,w,h) in faces:
-        cv2.rectangle(img, (x,y), (x+w, y+h),(255,0,0), 2) # draw the square
-        
-    cv2.imshow('img', resized_image)
-    k = cv2.waitKey(30) & 0xff
-    if k == 27:
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.5, 3)  # looks for the face
+    for (x, y, w, h) in faces:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+    cv2.imshow('Camera Feed', img)
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # pressing q exits
         break
 
 cap.release()
