@@ -8,17 +8,17 @@ import time
 face_cascade = cv2.CascadeClassifier(
     '/Users/ariveralee/opencv/data/lbpcascades/lbpcascade_frontalface.xml')
 
-# initialize camera
-camera = PiCamera()
+
+camera = PiCamera()						# initialize camera
 camera.resolution = (320, 240)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=(320, 240))
 
-# keeps track of frames with face in it
-count = 0
 
-# allow camera to initialize
-time.sleep(0.1)
+count = 0 								# counter for face detection
+
+
+time.sleep(0.1)							# allow camera to initialize
 
 # Takes in each frame from the camera and converts it to OpenCv's BGR format
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True)
@@ -26,11 +26,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	faces = face_cascade.detectMultiScale(gray, 1.5, 3)
 	
-	# checks to see if we have detected a face
-	if len(faces) != 0:
-		count++
+	if len(faces) != 0:					# not zero if a face is detected
+		count += 1
 	
-	# Draws the rectangle around the face if it's detected
+	# Draws the rectangle around the face
 	for (x, y, w, h) in faces:
 		cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
@@ -40,13 +39,12 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	key = cv2.waitKey(1) & 0xFF			# Wait key to keep the video streaming
 	rawCapture.truncate(0)				# removes each frame after it's displayed
 
-	# Makes sure that we have enough frames of someones face.
-	if count == 30:
-		count = 0
+	if count == 30:						# if the face was visible in 30 frames
+		count = 0 						# reset the count
 		print("Found a human")
 	
 	if key == ord("q"):					# Pressing q quits the program			
 		break
 
-print(count)
+print(count) 							# for Testing
 cv2.destroyAllWindows() 
