@@ -17,9 +17,7 @@ EXIT_PROGRAM = 0                    # When 1, program quits
 WINDOW_NAME = "Security feed"       # Window name for feed
 MOTION_SENSOR = MotionSensor(4)     # motion sensor sends output to pin 4
 
-
-def skynet():
-    # runs indefinitely until we quit.
+# runs indefinitely until we quit.
 while True:
     print("Waiting for motion")
     # pauses program until motion is detected
@@ -72,13 +70,13 @@ while True:
                 cv2.waitKey(10)         # waits forframes to be destroyed
                 break                   # break from inner loop
 
-            if key == ord("q"):			# Pressing q quits the program
+            if key == ord("q"):			# set EXIT_PROGRAM to 1 for exit
                 EXIT_PROGRAM = 1
                 break                   # break from inner loop
+
     camera.close()                      # closes camera to reduce resources.
 
     if EXIT_PROGRAM == 1:               # if we pressed q, we want to exit.
         break
 
 cv2.destroyAllWindows()                 # destroys gui window
-return                                  # exit function
