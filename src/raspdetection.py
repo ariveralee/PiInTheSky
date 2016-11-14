@@ -10,7 +10,7 @@ face_cascade = cv2.CascadeClassifier(
     '/home/pi/opencv-3.1.0/data/lbpcascades/lbpcascade_frontalface.xml')
 
 MIN_FACE_COUNT = 15                 # min frames before we detected a person
-MIN_FRAMES = 450                    # frames needed w.o a face before we stop searching
+MIN_FRAMES = 120                    # frames needed w.o a face before we stop searching
 FACE_COUNTER = 0                    # increments for each frame a face is found
 NO_FACE = MIN_FRAMES                # when zero, shuts off camera.
 EXIT_PROGRAM = 0                    # When 1, program quits
@@ -41,8 +41,9 @@ while True:
             cv2.namedWindow(WINDOW_NAME)
             faces = face_cascade.detectMultiScale(gray, 1.5, 3)
 
-            if len(faces) != 0:			# not zero if a face is detected
+            if len(faces) != 0:		# not zero if a face is detected
                 FACE_COUNTER += 1
+                NO_FACE = MIN_FRAMES    # eliminates shutting off if we see a face
             elif len(faces) == 0:       # no face is found in current frame
                 NO_FACE -= 1
 
@@ -67,10 +68,13 @@ while True:
                 print("False alarm")
                 NO_FACE = MIN_FRAMES    # resets to original value
                 cv2.destroyAllWindows()  # destroys gui window
-                cv2.waitKey(10)         # waits forframes to be destroyed
+                cv2.waitKey(1)          # waits forframes to be destroyed
+                cv2.waitKey(1)
+                cv2.waitKey(1)
+                cv2.waitKey(1)
                 break                   # break from inner loop
 
-            if key == ord("q"):			# set EXIT_PROGRAM to 1 for exit
+            if key == ord("q"):		# set EXIT_PROGRAM to 1 for exit
                 EXIT_PROGRAM = 1
                 break                   # break from inner loop
 
