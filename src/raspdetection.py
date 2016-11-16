@@ -1,5 +1,6 @@
 from picamera.array import PiRGBArray
 from gpiozero import MotionSensor
+from twilio.rest import TwilioRestClient
 import picamera
 import numpy as np
 import cv2
@@ -17,6 +18,12 @@ EXIT_PROGRAM = 0                    # When 1, program quits
 WINDOW_NAME = "Security feed"       # Window name for feed
 MOTION_SENSOR = MotionSensor(4)     # motion sensor sends output to pin 4
 
+# Twilio globals
+ACCOUNT_SID = "account"             # Account SID from www.twilio.com/console
+AUTH_TOKEN = "auth_token"           # Auth Token from www.twilio.com/console
+TWILIO_NUMBER = "+12672744736"      # Twilio number used to send SMS
+USER_NUMBER = "+12673998007"        # Number of users to receive notifications.
+
 
 def main():
     detect_motion()
@@ -24,7 +31,8 @@ def main():
 
 
 def detect_motion():
-    """Pauses the script until motion has been detected VIA the PIR sensor."""
+    """Pauses the script until motion has been detected VIA the PIR sensor.
+    """
     while True:
         print("Scanning for motion")
         MOTION_SENSOR.wait_for_motion()  # pauses program until motion is detected
@@ -41,7 +49,8 @@ def detect_motion():
 
 
 def initialize_camera():
-    """turns on camera for detection of a face in video feed"""
+    """turns on camera for detection of a face in video feed
+    """
     global camera
     camera = picamera.PiCamera()
     camera.resolution = (640, 480)
@@ -49,6 +58,15 @@ def initialize_camera():
     rawCapture = PiRGBArray(camera, size=(640, 480))
     time.sleep(0.1)
     detect_face(camera, rawCapture)
+
+
+def notify_user():
+    """ Sends a SMS to a user VIA Twilio's API.
+    """
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    message = client.messages.create(body="An Intruder has been spotted in your space",
+                                     to=TWILIO_NUMBER,
+                                     from_=USER_NUMBER)
 
 
 def detect_face(camera, rawCapture):
@@ -86,6 +104,7 @@ def detect_face(camera, rawCapture):
         if FACE_COUNTER == MIN_FACE_COUNT:
             FACE_COUNTER = 0
             print("Found a human")
+            notify_user()
 
         # reaching zero implies there's no person
         if NO_FACE == 0:
