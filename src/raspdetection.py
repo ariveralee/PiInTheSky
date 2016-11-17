@@ -19,10 +19,12 @@ WINDOW_NAME = "Security feed"       # Window name for feed
 MOTION_SENSOR = MotionSensor(4)     # motion sensor sends output to pin 4
 
 # Twilio globals
-ACCOUNT_SID = "account"             # Account SID from www.twilio.com/console
-AUTH_TOKEN = "auth_token"           # Auth Token from www.twilio.com/console
+# Account SID from www.twilio.com/console
+ACCOUNT_SID = "account"
+# Auth Token from www.twilio.com/console
+AUTH_TOKEN = "auth_token"
 TWILIO_NUMBER = "+12672744736"      # Twilio number used to send SMS
-USER_NUMBER = "+12673998007"        # Number of users to receive notifications.
+USER_NUMBER = "+12673998007"        # Number of user to receive notifications.
 
 
 def main():
@@ -65,8 +67,9 @@ def notify_user():
     """
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     message = client.messages.create(body="An Intruder has been spotted in your space",
-                                     to=TWILIO_NUMBER,
-                                     from_=USER_NUMBER)
+                                     to=USER_NUMBER,
+                                     from_=TWILIO_NUMBER)
+    print("User notified!")
 
 
 def detect_face(camera, rawCapture):
