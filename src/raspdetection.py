@@ -62,16 +62,6 @@ def initialize_camera():
     detect_face(camera, rawCapture)
 
 
-def notify_user():
-    """ Sends a SMS to a user VIA Twilio's API.
-    """
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    message = client.messages.create(body="An Intruder has been spotted in your space",
-                                     to=USER_NUMBER,
-                                     from_=TWILIO_NUMBER)
-    print("User notified!")
-
-
 def detect_face(camera, rawCapture):
     """Reads each frame from the video and looks for a face. If a face is found
     then we notify the user. If a face is not found then the camera shuts off and
@@ -81,7 +71,7 @@ def detect_face(camera, rawCapture):
     camera -- the camera we are receiving video from
     rawCapture -- resizes each frame that we are receiving
     """
-    global MIN_FACE_COUNT, MIN_FRAMES, FACE_COUNTER, NO_FACE, EXIT_PROGRAM, WINDOW_NAME, MOTION_SENSOR
+    global MIN_FACE_COUNT, MIN_FRAMES, FACE_COUNTER, NO_FACE, EXIT_PROGRAM
     for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
         img = frame.array
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -95,34 +85,65 @@ def detect_face(camera, rawCapture):
         elif len(faces) == 0:
             NO_FACE -= 1
 
-        for (x, y, w, h) in faces:
-            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        draw_rectangle(faces, img)
 
         cv2.namedWindow(WINDOW_NAME)
         cv2.imshow(WINDOW_NAME, img)
         key = cv2.waitKey(1) & 0xFF
         rawCapture.truncate(0)
 
-        # min frames to say we have a face
-        if FACE_COUNTER == MIN_FACE_COUNT:
-            FACE_COUNTER = 0
-            print("Found a human")
-            notify_user()
-
-        # reaching zero implies there's no person
-        if NO_FACE == 0:
-            print("False alarm")
-            NO_FACE = MIN_FRAMES
-            cv2.destroyAllWindows()
-            # waits for OpenCV's highgui to process
-            cv2.waitKey(1)
-            cv2.waitKey(1)
-            cv2.waitKey(1)
-            cv2.waitKey(1)
+        if frame_check() == False:
             return
 
         if key == ord("q"):
             EXIT_PROGRAM = 1
             return
 
-main()
+
+def draw_rectangle(faces, img):
+    """ Draws the box and text around the intruder's face
+
+    Keyword arguments:
+    faces -- frames that have faces detected
+    img -- the frame itself, this is what we are drawing on.
+    """
+    for (x, y, w, h) in faces:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
+
+def frame_check():
+    """ Sees if we have obtained enough frames to confirm we have a face 
+    or if we have gone through MIN_FRAMES to determine that it was a false alarm.
+    """
+    global FACE_COUNTER, NO_FACE, MIN_FRAMES, MIN_FACE_COUNT
+    # min frames to say we have a face
+    if FACE_COUNTER == MIN_FACE_COUNT:
+        FACE_COUNTER = 0
+        print("Found a human")
+        notify_user()
+
+    # reaching zero implies there's no person
+    if NO_FACE == 0:
+        print("False alarm")
+        NO_FACE = MIN_FRAMES
+        cv2.destroyAllWindows()
+        # waits for OpenCV's highgui to process
+        cv2.waitKey(1)
+        cv2.waitKey(1)
+        cv2.waitKey(1)
+        cv2.waitKey(1)
+        return False
+
+
+def notify_user():
+    """ Sends a SMS to a user VIA Twilio's API.
+    """
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    message = client.messages.create(body="An Intruder has been spotted in your space",
+                                     to=USER_NUMBER,
+                                     from_=TWILIO_NUMBER)
+    print("User notified!")
+
+
+if __name__ == "__main__":
+    main()
