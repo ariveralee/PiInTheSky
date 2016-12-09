@@ -24,15 +24,15 @@ H264_FORMAT = ".h264"                # h264 format file ext.
 MP4_FORMAT = ".mp4"                 # mp4 format file ext.
 
 # Twilio globals
-ACCOUNT_SID = " "                   # From Twilio.com/console
-AUTH_TOKEN = " "                    # From Twilio.com/console
-TWILIO_NUMBER = " "                 # Twilio number used to send SMS
-USER_NUMBER = " "                   # Number of user to receive notifications.
+ACCOUNT_SID = ""                   # From Twilio.com/console
+AUTH_TOKEN = ""                    # From Twilio.com/console
+TWILIO_NUMBER = ""                 # Twilio number used to send SMS
+USER_NUMBER = ""                   # Number of user to receive notifications.
 
 
 def main():
-	"""Reads Twilio information from file and starts program. File should be git ignored
-	"""
+    """Reads Twilio information from file and starts program. File should be git ignored
+    """
     read_file()
     detect_motion()
     print("Exiting Program")
@@ -152,8 +152,8 @@ def notify_user():
 
 
 def record_video():
-	""" Records, saves and converts the video to a MP4 format.
-	"""
+    """ Records, saves and converts the video to a MP4 format.
+    """
     global VIDEO_COUNT, camera
     rawFile = FILE_NAME % (VIDEO_COUNT, H264_FORMAT)
     camera.start_recording(rawFile)
@@ -169,14 +169,15 @@ def record_video():
     print("Video saved")
 
 def read_file():
-	"""Reads information for Twilio from Text file present on the local machine
-	"""
-	global TWILIO_NUMBER, USER_NUMBER, ACCOUNT_SID, AUTH_TOKEN
+    """Reads information for Twilio from Text file present on the local machine
+    """
+    global TWILIO_NUMBER, USER_NUMBER, ACCOUNT_SID, AUTH_TOKEN
     file = open('twilio.txt', 'r')
-    TWILIO_NUMBER = file.readLine()
-    USER_NUMBER = file.readLine()
-    ACCOUNT_SID = file.readline()
-    AUTH_TOKEN = file.readline()
+    TWILIO_NUMBER = file.readline().replace('\n', '')
+    USER_NUMBER = file.readline().replace('\n', '')
+    ACCOUNT_SID = file.readline().replace('\n', '')
+    AUTH_TOKEN = file.readline().replace('\n', '')
+    print(TWILIO_NUMBER)
 
 if __name__ == "__main__":
     main()
