@@ -120,6 +120,7 @@ def frame_check():
     if FACE_COUNTER == MIN_FACE_COUNT:
         FACE_COUNTER = 0
         print("Found a human")
+        record_video()
         notify_user()
 
     # reaching zero implies there's no person
@@ -143,6 +144,16 @@ def notify_user():
                                      to=USER_NUMBER,
                                      from_=TWILIO_NUMBER)
     print("User notified!")
+
+def record_video():
+	global camera
+	recordTime = 30
+	camera.start_recording('intruder.h264')
+	camera.wait_recording(60)
+	for i in range(0, recordTime):
+		recordTime -= 1
+		if (recordTime == 0):
+			camera.stop_recording()
 
 
 if __name__ == "__main__":
