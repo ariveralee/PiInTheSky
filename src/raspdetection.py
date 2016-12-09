@@ -1,6 +1,7 @@
 from picamera.array import PiRGBArray
 from gpiozero import MotionSensor
 from twilio.rest import TwilioRestClient
+from subprocess import call
 import picamera
 import numpy as np
 import cv2
@@ -17,17 +18,22 @@ NO_FACE = MIN_FRAMES                # when zero, shuts off camera.
 EXIT_PROGRAM = 0                    # When 1, program quits
 WINDOW_NAME = "Security feed"       # Window name for feed
 MOTION_SENSOR = MotionSensor(4)     # motion sensor sends output to pin 4
+FILE_NAME = "intruder_%d%s"	        # file name for saving video
+VIDEO_COUNT = 1                     # initial count for filename
+H264_FORMAT = ".h264"                # h264 format file ext.
+MP4_FORMAT = ".mp4"                 # mp4 format file ext.
 
 # Twilio globals
-# Account SID from www.twilio.com/console
-ACCOUNT_SID = "account"
-# Auth Token from www.twilio.com/console
-AUTH_TOKEN = "auth_token"
-TWILIO_NUMBER = "+12672744736"      # Twilio number used to send SMS
-USER_NUMBER = "+12673998007"        # Number of user to receive notifications.
+ACCOUNT_SID = " "                   # From Twilio.com/console
+AUTH_TOKEN = " "                    # From Twilio.com/console
+TWILIO_NUMBER = " "                 # Twilio number used to send SMS
+USER_NUMBER = " "                   # Number of user to receive notifications.
 
 
 def main():
+	"""Reads Twilio information from file and starts program. File should be git ignored
+	"""
+    read_file()
     detect_motion()
     print("Exiting Program")
 
@@ -112,7 +118,7 @@ def draw_rectangle(faces, img):
 
 
 def frame_check():
-    """ Sees if we have obtained enough frames to confirm we have a face 
+    """ Sees if we have obtained enough frames to confirm we have a face
     or if we have gone through MIN_FRAMES to determine that it was a false alarm.
     """
     global FACE_COUNTER, NO_FACE, MIN_FRAMES, MIN_FACE_COUNT
@@ -129,10 +135,9 @@ def frame_check():
         NO_FACE = MIN_FRAMES
         cv2.destroyAllWindows()
         # waits for OpenCV's highgui to process
-        cv2.waitKey(1)
-        cv2.waitKey(1)
-        cv2.waitKey(1)
-        cv2.waitKey(1)
+        for i in range(0, 3):
+            cv2.waitKey(1)
+
         return False
 
 
@@ -140,21 +145,38 @@ def notify_user():
     """ Sends a SMS to a user VIA Twilio's API.
     """
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    message = client.messages.create(body="An Intruder has been spotted in your space",
+    message = client.messages.create(body="An Intruder has been spotted in your space and a video has been recorded",
                                      to=USER_NUMBER,
                                      from_=TWILIO_NUMBER)
     print("User notified!")
 
-def record_video():
-	global camera
-	recordTime = 30
-	camera.start_recording('intruder.h264')
-	camera.wait_recording(60)
-	for i in range(0, recordTime):
-		recordTime -= 1
-		if (recordTime == 0):
-			camera.stop_recording()
 
+def record_video():
+	""" Records, saves and converts the video to a MP4 format.
+	"""
+    global VIDEO_COUNT, camera
+    rawFile = FILE_NAME % (VIDEO_COUNT, H264_FORMAT)
+    camera.start_recording(rawFile)
+    # this is the length of time the camera records
+    camera.wait_recording(10)
+    camera.stop_recording()
+    formatted_file = FILE_NAME % (VIDEO_COUNT, MP4_FORMAT)
+    # converts video from .h264 to mp4 for viewing.
+    call(["avconv", "-r", "30", "-i", rawFile, "-vcodec", "copy", formatted_file])
+    call(["rm", rawFile])
+    # allows for multiple video files.
+    VIDEO_COUNT += 1
+    print("Video saved")
+
+def read_file():
+	"""Reads information for Twilio from Text file present on the local machine
+	"""
+	global TWILIO_NUMBER, USER_NUMBER, ACCOUNT_SID, AUTH_TOKEN
+    file = open('twilio.txt', 'r')
+    TWILIO_NUMBER = file.readLine()
+    USER_NUMBER = file.readLine()
+    ACCOUNT_SID = file.readline()
+    AUTH_TOKEN = file.readline()
 
 if __name__ == "__main__":
     main()
